@@ -1,0 +1,79 @@
+<div class="content">
+    <header class="page-header">
+        <div class="d-flex align-items-center">
+            <div class="mr-auto p-3">
+                <h1>{{ isEditing ? 'Update' : 'Create' }} Product</h1>
+            </div>
+        </div>
+    </header>
+    <section class="page-content container-fluid">
+        <div class="lorder-wrap" *ngIf="loadingState">
+            <div class="loader"></div>
+        </div>
+        <div class="card card-tabs strache-card">
+            <form [formGroup]="addForm" (ngSubmit)="submitForm(addForm)" role="form">
+                <div class="card-body p-25 p-l-30 p-r-30">
+                    <div class="d-flex">
+                        <div class="left-form-content m-l-20 m-r-0">
+                            <div class="clearfix">
+                                <div class="fileinput text-center fileinput-new" data-provides="fileinput">
+                                    <div class="btn-file mt-3">
+                                        <div class="thumbnail fileinput-new  rounded-circle"
+                                            style="width: 150px; height: 150px;">
+                                            <img [src]="editImageUrl ? editImageUrl : 'assets/demo.png'" alt="">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <button class="fileinput-new btn btn-secondary btn-sm btn-file mt-3"> Browse
+                                            Image </button>
+                                        <input accept="image/x-png,image/jpeg" (change)="fileChangeEvent($event)"
+                                            type="file" file-model="myFile">
+                                        <div class="fileinput-preview fileinput-exists thumbnail  rounded-circle"
+                                            style="width: 150px; height: 150px;"></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a (click)="removeFile()" class="btn btn-link btn-sm fileinput-exists mt-3"
+                                            data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                    <div class="clearfix mt-3">
+                                        <p class="upload-img-label text-muted font-size-12">*Recommended Size:
+                                            <br>Minimum 250 * 250</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row flex">
+                            <div class="col-xl-12 " style="margin-left:25px ;">
+                                <div class="form-row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Name</label>
+                                            <input type="text" class="form-control"
+                                                [formControl]="addForm.controls['name']">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Price</label>
+                                            <input number type="text" class="form-control"
+                                                [formControl]="addForm.controls['price']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-right">
+                    <div class="btn-list">
+                        <button type="button" [routerLink]="['/']"
+                            class="btn btn-outline-secondary  btn-rounded"><i class="fa fa-times"></i> Cancel</button>
+                        <button type="submit" [disabled]="showLoader" class="btn btn-outline-success btn-rounded">
+                            <i *ngIf="!showLoader" class="fa fa-check"></i>
+                            <i *ngIf="showLoader" class="fa fa-spinner fa-spin"></i>
+                            Success</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

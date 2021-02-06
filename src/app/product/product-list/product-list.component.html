@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="page-header border-b mt-3">
+        <div class="row m-0">
+            <h2 class="mr-auto">Product </h2>
+            <div class="ml-3">
+                <div class="input-group search-box">
+                    <input type="text" class="form-control" #search (keyup.enter)="searchObject(search.value)" name="search"
+                      autocomplete="off" placeholder="Search hear..">
+                    <div class="input-group-append">
+                      <button type="button" (click)="searchObject(search.value)" class="input-group-text pointer"><i
+                          class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+            </div>
+            <div class="ml-3">
+                <a class="btn btn-secondary" [routerLink]="['/add']"   >
+                    Add Product
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <section class="page-content container-fluid">
+            <div class="card strache-card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover m-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th class="table-field-actions text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let obj of objectArray">
+                                    <td>
+                                        <div class="media d-user" [routerLink]="['view', obj?.id]">
+                                            <img [src]="obj?.image ? obj?.image : 'assets/demo.png'" alt="Brand logo" class="rounded-circle" width="45" height="45" />
+                                             <div class="media-body">
+                                                <h5 class="mt-1 mb-0 "> {{obj?.name}} </h5>                     
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{obj?.price|number }}</td>
+                                    <td class="table-field-actions text-center">
+                                        <div class="action-drop dropdown">
+                                            <a href="#" data-toggle="dropdown" class="btn btn-default btn-sm btn-icon-only" title="">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-icon-menu dropdown-menu-right">
+                                                <a [routerLink]="['view', obj?.id]" class="dropdown-item"><i
+                                                    class="fa fa-eye fa-fw text-primary">
+                                                </i> View</a>
+                                                <a [routerLink]="['edit', obj?.id]" class="dropdown-item"><i
+                                                        class="fa fa-edit fa-fw text-primary">
+                                                    </i> Edit</a>
+                                                <a (click)="deleteObject(obj)" class="dropdown-item"><i
+                                                        class="fa fa-trash fa-fw text-primary">
+                                                    </i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="objectArray.length==0">
+                                    <td colspan="6">No Record Found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <pagination [paginationList]="pagination" [currentPage]="currentPage" (onPageChange)="getPage($event)">
+                    </pagination>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    .search-box {
+      width: 280px;
+    }
+  
+    .search-box .form-control {
+      background-color: white;
+      border: none;
+    }
+  
+    .search-box .input-group-text {
+      background-color: #a5a2e2;
+      border: 1px solid white;
+      color: white;
+      border-radius: 0 3px 3px 0;
+    }
+  </style>

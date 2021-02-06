@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Docker Angular
+
+create ->   `sudo docker build -t angular-app .`
+
+list ->  `sudo docker container ls`
+           `sudo docker images`
+
+run ->  
+(1) `docker run -d -it -p 80:80/tcp --name <container_name>   <image_name>`
+(2) sudo docker run -p 80:80 mybuild
+
+remove container ->  `sudo docker rm -f angular-app`
+
+remove image -> `docker rmi Image Image`
+
+clean all image ->  `sudo docker system prune`
+
+# Dockerfile
+FROM nginx:1.17.1-alpine
+
+COPY /dist/roadgripz-angular /usr/share/nginx/html
